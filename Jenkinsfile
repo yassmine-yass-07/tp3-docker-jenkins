@@ -28,20 +28,18 @@ pipeline {
         """
       }
     }
-    stage('Push (Docker Hub)') {
-      steps {
+   stage('Push (Docker Hub)') {
+    steps {
         withCredentials([usernamePassword(credentialsId: 'dockerhub-creds',
                                           usernameVariable: 'USER',
                                           passwordVariable: 'PASS')]) {
-          bat """
-            echo %PASS% | docker login -u %USER% --password-stdin
-            docker tag %IMAGE%:%TAG% %IMAGE%:latest
-            docker push %IMAGE%:%TAG%
-            docker push %IMAGE%:latest
-          """
+            bat 'echo %PASS%| docker login -u %USER% --password-stdin'
+            bat 'docker tag yassminejlassi/monapp:build-%BUILD_NUMBER% yassminejlassi/monapp:latest'
+            bat 'docker push yassminejlassi/monapp:build-%BUILD_NUMBER%'
+            bat 'docker push yassminejlassi/monapp:latest'
         }
-      }
     }
+}
        stage('Deploy') {
       steps {
         bat 'docker compose pull'
