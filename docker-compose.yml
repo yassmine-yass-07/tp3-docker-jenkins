@@ -1,6 +1,6 @@
 services:
   web:
-    image: VOTRE_USERNAME_DOCKERHUB/monapp:latest
+    image: yassminejlassi/monapp:latest
     ports:
       - "8090:80"
     restart: unless-stopped
