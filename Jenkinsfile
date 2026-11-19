@@ -42,13 +42,11 @@ pipeline {
         }
       }
     }
-    stage('Deploy') {
+       stage('Deploy') {
       steps {
-        bat """
-          docker compose pull
-          docker compose up -d
-          docker ps
-        """
+        bat 'docker compose pull'
+        bat 'docker compose up -d'
+        bat 'docker ps'
       }
     }
   }
